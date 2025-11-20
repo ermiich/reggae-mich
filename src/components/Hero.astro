@@ -1,0 +1,49 @@
+---
+const { welcomeMsg, mWords } = Astro.props;
+
+---
+
+<div
+	class="hero min-h-screen"
+	style="background-image: url(/hero/background3.webp);"
+	id="hero-background"
+>
+	<div class="hero-overlay bg-black/70"></div>
+	<div class="hero-content text-neutral-content text-center w-full">
+		<div class="w-full flex flex-col items-center">
+      <h1
+        class="mb-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-300 w-full flex flex-col items-center px-4 text-center leading-tight wrap-break-word"
+      >
+        {welcomeMsg}
+        <span class="text-rotate mt-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white">
+          <span class="justify-items-center max-w-full overflow-hidden">
+						<span>{mWords[0]}</span>
+						<span>{mWords[1]}</span>
+						<span>{mWords[2]}</span>
+					</span>
+				</span>
+			</h1>
+		</div>
+	</div>
+</div>
+
+<script>
+  if (typeof window !== 'undefined') {
+    const heroBackground = document.getElementById('hero-background');
+    const images = ['/hero/background3.webp','/hero/background2.jpg', '/hero/background1.jpg' ];
+    let currentIndex = 0;
+
+    if (heroBackground) {
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        heroBackground.style.backgroundImage = `url(${images[currentIndex]})`;
+      }, 5000);
+    }
+  }
+</script>
+
+<style>
+  #hero-background {
+    transition: background-image 1s ease-in-out;
+  }
+</style>

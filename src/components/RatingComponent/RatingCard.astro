@@ -1,0 +1,55 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+	reviews: number;
+	rating: string;
+	imageSrc: ImageMetadata;
+	orderNum: string;
+}
+
+const { reviews, rating, imageSrc, orderNum } = Astro.props;
+---
+
+<div class="bg-white/10 flex  h-fit p-5 w-2/3 sm:w-1/4 justify-around">
+  <div>
+    <p class="text-5xl text-center font-bold">{rating}</p>
+    <p class="text-center">{reviews} reviews</p>
+  </div>
+  <div class="flex flex-col gap-2 items-center justify-center">
+    <Image src={imageSrc} alt="Rating Logo" height={40} class="inline-block" />
+    <div class="rating rating-sm">
+      <input
+        type="radio"
+        name={"rating-" + orderNum}
+        class="mask mask-star-2 bg-green-400"
+        aria-label="1 star"
+      />
+      <input
+        type="radio"
+        name={"rating-" + orderNum}
+        class="mask mask-star-2 bg-lime-400"
+        aria-label="2 star"
+      />
+      <input
+        type="radio"
+        name={"rating-" + orderNum}
+        class="mask mask-star-2 bg-yellow-400"
+        aria-label="3 star"
+      />
+      <input
+        type="radio"
+        name={"rating-" + orderNum}
+        class="mask mask-star-2 bg-orange-400"
+        aria-label="4 star"
+      />
+      <input
+        type="radio"
+        name={"rating-" + orderNum}
+        class="mask mask-star-2 bg-red-400"
+        aria-label="5 star"
+        checked="checked"
+      />
+    </div>
+  </div>
+</div>

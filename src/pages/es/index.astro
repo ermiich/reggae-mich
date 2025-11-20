@@ -1,0 +1,47 @@
+---
+import Header from '../../components/Layout/Header.astro';
+import Footer from '../../components/Layout/Footer.astro';
+import Layout from '../../layouts/Layout.astro';
+import flag from '../../assets/flags/esp.svg';
+import flagP1 from '../../assets/flags/eng.svg';
+import flagP2 from '../../assets/flags/fr.svg';
+import Hero from '../../components/Hero.astro';
+import Offers from '../../components/Offers.astro';
+import Separator from '../../components/Layout/Separator.astro';
+import RatingSection from '../../components/RatingComponent/RatingSection.astro';
+
+const headerSection = {
+  flagImg: flag,
+  flagImgP1: flagP1,
+  flagImgP2: flagP2,
+  currentLang: "es",
+  homeTxt: "Inicio",
+  cocktailsTxt: "Cócteles",
+  contactTxt: "Contacto"
+};
+
+const heroSection = {
+  welcomeMsg: "Bienvenidos al",
+  mWords: ["REGGAE BAR", "SITIO IDEAL","BUEN ROLLO", "PARAÍSO"]
+};
+
+const offerTitle = "LO FAVORITO DEL CLIENTE";
+const offersSection = [
+  { title: 'Cócteles', description: 'Disfruta de una variedad de cócteles exóticos y refrescantes.' },
+  { title: 'Cervezas', description: 'Prueba nuestras cervezas locales e internacionales.' },
+  { title: 'Shishas', description: 'Relájate con nuestras shishas de sabores únicos.' },
+];
+
+const ratingTitle = "Nuestras Valoraciones";
+
+---
+
+<Layout>
+  <Header flagImg={flag} flagImgP1={flagP1} flagImgP2={flagP2} currentLang={headerSection.currentLang} homeTxt={headerSection.homeTxt} cocktailsTxt={headerSection.cocktailsTxt} contactTxt={headerSection.contactTxt} />
+  <Hero welcomeMsg={heroSection.welcomeMsg} mWords={heroSection.mWords} />
+  <Separator />
+  <Offers sectionTitle={offerTitle} offers={offersSection} />
+  <Separator />
+  <RatingSection sectionTitle={ratingTitle} />
+  <Footer/>
+</Layout>

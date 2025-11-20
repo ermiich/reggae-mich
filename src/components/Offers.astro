@@ -1,0 +1,38 @@
+---
+export interface Offer {
+	title: string;
+	description: string;
+}
+
+interface Props {
+	offers: Offer[];
+	sectionTitle: string;
+}
+
+const { offers, sectionTitle } = Astro.props;
+---
+
+<section class="flex flex-col items-center py-12 bg-linear-to-br from-green-950 via-yellow-900 to-red-900">
+  <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold animate-pulse text-center">
+    {sectionTitle}
+  </h2>
+	<div class="flex flex-wrap gap-6 justify-center mt-10">
+		{
+			offers.map((offer) => (
+				<div class="card bg-black/30 w-96 shadow-sm outline-1 outline-green-400 hover:outline-yellow-400 hover:scale-105 transition-all duration-300">
+					<figure class="px-5 pt-5">
+						<img
+							src="/mojito.webp"
+							alt="Shoes"
+							class="rounded-xl"
+						/>
+					</figure>
+					<div class="card-body items-center text-center">
+						<h2 class="card-title text-2xl font-bold">{offer.title}</h2>
+						<p>{offer.description}</p>
+					</div>
+				</div>
+			))
+		}
+	</div>
+</section>
