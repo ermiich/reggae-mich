@@ -1,0 +1,41 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Layout/Header.astro';
+import Footer from '../../components/Layout/Footer.astro';
+import Hero from '../../components/Hero.astro';
+import Offers from '../../components/Offers.astro';
+import Separator from '../../components/Layout/Separator.astro';
+import RatingSection from '../../components/RatingComponent/RatingSection.astro';
+import flag from '../../assets/flags/esp.svg';
+import flagP1 from '../../assets/flags/eng.svg';
+import flagP2 from '../../assets/flags/fr.svg';
+import { locales, translations, defaultLocale } from '../../data/i18n';
+
+export async function getStaticPaths() {
+  return locales.map((l) => ({ params: { lang: l } }));
+}
+
+const { lang } = Astro.params;
+const t = translations[lang as keyof typeof translations] ?? translations[defaultLocale];
+
+const headerSection = {
+  flagImg: flag,
+  flagImgP1: flagP1,
+  flagImgP2: flagP2,
+  currentLang: lang,
+  homeTxt: t.home,
+  cocktailsTxt: t.cocktails,
+  contactTxt: t.contact
+};
+
+---
+
+<Layout lang={lang}>
+  <Header flagImg={headerSection.flagImg} flagImgP1={headerSection.flagImgP1} flagImgP2={headerSection.flagImgP2} currentLang={headerSection.currentLang} homeTxt={headerSection.homeTxt} cocktailsTxt={headerSection.cocktailsTxt} contactTxt={headerSection.contactTxt} />
+  <Hero welcomeMsg={t.welcomeMsg} mWords={t.mWords} />
+  <Separator />
+  <Offers sectionTitle={t.offerTitle} offers={t.offers} />
+  <Separator />
+  <RatingSection sectionTitle={t.ratingTitle} />
+  <Footer />
+</Layout>

@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Layout/Header.astro';
+import Footer from '../../components/Layout/Footer.astro';
+import { locales, translations, defaultLocale } from '../../data/i18n';
+import flag from '../../assets/flags/esp.svg';
+import flagP1 from '../../assets/flags/eng.svg';
+import flagP2 from '../../assets/flags/fr.svg';
+
+export async function getStaticPaths() {
+  return locales.map((l) => ({ params: { lang: l } }));
+}
+
+const { lang } = Astro.params;
+const t = translations[lang as keyof typeof translations] ?? translations[defaultLocale];
+
+---
+
+<Layout lang={lang}>
+  <Header flagImg={flag} flagImgP1={flagP1} flagImgP2={flagP2} currentLang={lang} homeTxt={t.home} cocktailsTxt={t.cocktails} contactTxt={t.contact} />
+
+  <main class="p-6">
+    <h1 class="text-3xl font-bold">{t.cocktails}</h1>
+    <p class="mt-4">A placeholder cocktails page. Translations loaded for: {lang}</p>
+  </main>
+
+  <Footer />
+</Layout>
