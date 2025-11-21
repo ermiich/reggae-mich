@@ -1,0 +1,74 @@
+---
+const { title, description, canonical, image, lang, business } = Astro.props;
+import defaultLogo from '../assets/logos/koj_logo.png';
+const defaultLogoHref = typeof defaultLogo === 'string' ? defaultLogo : (defaultLogo && defaultLogo.src) || '/assets/logos/koj_logo.png';
+const siteImage = image ?? defaultLogoHref;
+const siteCanonical = canonical ?? new URL(Astro.request.url).href;
+// Ensure image URLs used for social metadata are absolute — social crawlers require full URLs
+function toAbsoluteUrl(urlStr: unknown) {
+  try {
+    if (!urlStr) return urlStr;
+    const s = String(urlStr);
+    // already absolute
+    if (s.startsWith('http://') || s.startsWith('https://') || s.startsWith('//')) {
+      return s;
+    }
+    // resolve relative to canonical origin
+    const base = new URL(siteCanonical).origin;
+    return new URL(s, base).href;
+  } catch (err) {
+    return String(urlStr);
+  }
+}
+const siteImageAbsolute: string = String(toAbsoluteUrl(siteImage));
+const siteLang = lang ?? 'en';
+
+// Build JSON-LD LocalBusiness object if `business` prop is provided
+let businessJson = null;
+if (business) {
+  const addr = business.address || '';
+  businessJson = {
+    "@context": "https://schema.org",
+    "@type": business.type || 'LocalBusiness',
+    "name": business.name || null,
+    "description": business.description || description || null,
+    "url": siteCanonical,
+    "telephone": business.telephone || null,
+    "email": business.email || null,
+    "image": toAbsoluteUrl(business.image || siteImage),
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": addr || null
+    },
+    // openingHours can be a free text fallback if not structured
+    "openingHours": business.openingHours ? [business.openingHours] : undefined,
+    "openingHoursSpecification": business.openingHoursSpecification || undefined,
+    "sameAs": business.sameAs || undefined
+  };
+}
+const jsonLdString = JSON.stringify(businessJson);
+
+---
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={siteCanonical} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content={siteLang} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={siteCanonical} />
+  <meta property="og:image" content={siteImageAbsolute} />
+  <meta property="og:image:secure_url" content={siteImageAbsolute} />
+  <meta property="og:image:type" content="image/png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={siteImageAbsolute} />
+
+  <!-- Provide canonical absolute image for other crawlers -->
+  <meta itemprop="image" content={siteImageAbsolute} />
+
+  <script type="application/ld+json">{jsonLdString}</script>

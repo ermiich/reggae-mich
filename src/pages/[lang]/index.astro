@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Layout/Header.astro';
+import Seo from '../../components/Seo.astro';
 import Footer from '../../components/Layout/Footer.astro';
 import Hero from '../../components/Hero.astro';
 import Offers from '../../components/Offers.astro';
@@ -16,6 +17,8 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const currentPath = new URL(Astro.request.url).pathname;
+const canonical = new URL(Astro.request.url).href;
 const t = translations[lang as keyof typeof translations] ?? translations[defaultLocale];
 
 const headerSection = {
@@ -30,8 +33,25 @@ const headerSection = {
 
 ---
 
+<Seo title={t.seo.home.title} description={t.seo.home.description} canonical={canonical} lang={lang} business={{
+  name: t.siteName,
+  description: t.seo.home.description,
+  address: t.contactAddress,
+  telephone: t.contactPhone,
+  email: t.contactEmail,
+  openingHours: t.contactHours,
+  openingHoursSpecification: t.openingHoursSpecification,
+  image: '/assets/logos/koj_logo.png',
+  type: 'Bar',
+  sameAs: [
+    'https://www.instagram.com/kingofjudahreggae/',
+    'https://www.tripadvisor.com/Attraction_Review-g187482-d13817854-Reviews-King_Of_Judah_Reggae_Bar-Santa_Cruz_de_Tenerife_Tenerife_Canary_Islands.html',
+    'https://www.facebook.com/KingOfJudahTenerife'
+  ]
+}} />
+
 <Layout lang={lang}>
-  <Header flagImg={headerSection.flagImg} flagImgP1={headerSection.flagImgP1} flagImgP2={headerSection.flagImgP2} currentLang={headerSection.currentLang} homeTxt={headerSection.homeTxt} cocktailsTxt={headerSection.cocktailsTxt} contactTxt={headerSection.contactTxt} />
+  <Header flagImg={headerSection.flagImg} flagImgP1={headerSection.flagImgP1} flagImgP2={headerSection.flagImgP2} currentLang={headerSection.currentLang} currentPath={currentPath} homeTxt={headerSection.homeTxt} cocktailsTxt={headerSection.cocktailsTxt} contactTxt={headerSection.contactTxt} />
   <Hero welcomeMsg={t.welcomeMsg} mWords={t.mWords} />
   <Separator />
   <Offers sectionTitle={t.offerTitle} offers={t.offers} />

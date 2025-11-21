@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Layout/Header.astro';
+import Seo from '../../components/Seo.astro';
 import Footer from '../../components/Layout/Footer.astro';
 import { locales, translations, defaultLocale } from '../../data/i18n';
 import flag from '../../assets/flags/esp.svg';
@@ -12,16 +13,72 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const currentPath = new URL(Astro.request.url).pathname;
+const canonical = new URL(Astro.request.url).href;
 const t = translations[lang as keyof typeof translations] ?? translations[defaultLocale];
-
 ---
 
-<Layout lang={lang}>
-  <Header flagImg={flag} flagImgP1={flagP1} flagImgP2={flagP2} currentLang={lang} homeTxt={t.home} cocktailsTxt={t.cocktails} contactTxt={t.contact} />
+  <Seo title={t.seo.contact.title} description={t.seo.contact.description} canonical={canonical} lang={lang} business={{
+  name: t.siteName,
+  description: t.seo.contact.description,
+  address: t.contactAddress,
+  telephone: t.contactPhone,
+  email: t.contactEmail,
+  openingHours: t.contactHours,
+  openingHoursSpecification: t.openingHoursSpecification,
+  image: '/assets/logos/koj_logo.png',
+    type: 'Bar',
+    sameAs: [
+      'https://www.instagram.com/kingofjudahreggae/',
+      'https://www.tripadvisor.com/Attraction_Review-g187482-d13817854-Reviews-King_Of_Judah_Reggae_Bar-Santa_Cruz_de_Tenerife_Tenerife_Canary_Islands.html',
+      'https://www.facebook.com/KingOfJudahTenerife'
+    ]
+}} />
 
-  <main class="p-6">
-    <h1 class="text-3xl font-bold">{t.contact}</h1>
-    <p class="mt-4">A placeholder contact page. Translations loaded for: {lang}</p>
+<Layout lang={lang}>
+  <Header flagImg={flag} flagImgP1={flagP1} flagImgP2={flagP2} currentLang={lang} currentPath={currentPath} homeTxt={t.home} cocktailsTxt={t.cocktails} contactTxt={t.contact} />
+
+  <main class="min-h-screen px-8 bg-linear-to-br from-green-950 via-yellow-900 to-red-900 flex flex-col items-center py-12 gap-12">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold animate-pulse mb-4 py-12 text-center">{t.contact}</h1>
+
+    <!-- Responsive flex: two columns via widths; centered elements on small devices -->
+    <div class="flex flex-wrap items-stretch justify-center gap-12 max-w-screen-lg w-full">
+      <!-- Left column: Google Maps iframe -->
+      <div class="w-full sm:w-1/2 md:w-1/2 h-full flex items-center justify-center box-border px-4">
+        <!-- Embedded Google Maps (responsive). Replace with your own embed if needed -->
+        <iframe
+          class="w-full max-w-[600px] rounded-lg h-[300px] sm:h-[400px] border-0"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7042.025972314438!2d-16.7144367!3d28.054628100000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc6a99d2ddf3ffff%3A0x9812cd55b4a397f0!2sKing%20of%20Judah%20Cocktails%20Reggae%20Bar!5e0!3m2!1ses!2ses!4v1763750500911!5m2!1ses!2ses"
+          width="100%"
+          height="400"
+          style="border:0;"
+          allowfullscreen=""
+          referrerpolicy="no-referrer-when-downgrade"
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      <!-- Right column: titles and descriptions -->
+      <div class="px-4 sm:px-10 self-stretch w-full sm:w-1/3 md:w-1/3 flex flex-col justify-center items-center sm:items-start gap-4 text-center sm:text-left bg-neutral/30 rounded-lg box-border">
+        <h2 class="text-3xl font-bold mb-4">{t.information}</h2>
+        <section >
+          <h2 class="text-2xl font-semibold">{(lang === 'es') ? 'Dirección' : (lang === 'fr' ? 'Adresse' : 'Address')}</h2>
+          <p class="mt-1">{t.contactAddress}</p>
+        </section>
+
+        <section >
+          <h2 class="text-2xl font-semibold">{(lang === 'es') ? 'Horario' : (lang === 'fr' ? 'Horaires' : 'Hours')}</h2>
+          <p class="mt-1">{t.contactHours}</p>
+        </section>
+
+        <section >
+          <h2 class="text-xl font-semibold">{(lang === 'es') ? 'Contacto' : (lang === 'fr' ? 'Contact' : 'Contact')}</h2>
+          <p class="mt-1">{t.contactPhone}</p>
+          <p class="mt-1"><a href={`mailto:${t.contactEmail}`} class="link">{t.contactEmail}</a></p>
+        </section>
+      </div>
+    </div>
+
   </main>
 
   <Footer />

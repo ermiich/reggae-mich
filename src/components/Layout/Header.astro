@@ -1,5 +1,14 @@
 ---
-const {flagImg,flagImgP1,flagImgP2,currentLang, homeTxt, contactTxt, cocktailsTxt} = Astro.props;
+const {flagImg,flagImgP1,flagImgP2,currentLang, homeTxt, contactTxt, cocktailsTxt, currentPath = '/'} = Astro.props;
+// Compute a href for a target language preserving the current path after the language segment.
+function makeLangHref(targetLang: string) {
+  const path = (currentPath && typeof currentPath === 'string') ? currentPath : '/';
+  const normalized = path.startsWith('/') ? path : '/' + path;
+  // Remove leading /{currentLang} or leading /{currentLang}/
+  const withoutLang = normalized.replace(new RegExp(`^/${currentLang}(/|$)`), '/');
+  const suffix = withoutLang === '/' ? '/' : withoutLang;
+  return `/${targetLang}${suffix}`;
+}
 import Image from "astro/components/Image.astro";
 import logo from '../../assets/logos/koj_logo.png';
 ---
@@ -16,11 +25,23 @@ import logo from '../../assets/logos/koj_logo.png';
 
       <li>
         <details>
-          <summary><Image src={flagImg} alt="Language Selector Flag" class="w-8"></Image></summary>
-          <ul class="bg-base-100 rounded-t-none p-2">
-            <li><a href="/es"><Image src={flagImg} alt="Language Selector Flag" class="w-8"></Image></a></li>
-            <li><a href="/en"><Image src={flagImgP1} alt="Language Selector Flag" class="w-8"></Image></a></li>
-            <li><a href="/fr"><Image src={flagImgP2} alt="Language Selector Flag" class="w-8"></Image></a></li>
+          <summary>
+            <Image
+              src={
+                currentLang === 'es'
+                  ? flagImg
+                  : currentLang === 'en'
+                  ? flagImgP1
+                  : flagImgP2
+              }
+              alt={`Flag ${currentLang}`}
+              class="w-8"
+            ></Image>
+          </summary>
+            <ul class="bg-base-100 rounded-t-none p-2">
+            <li><a href={makeLangHref('es')}><Image src={flagImg} alt="ES" class="w-8"></Image></a></li>
+            <li><a href={makeLangHref('en')}><Image src={flagImgP1} alt="EN" class="w-8"></Image></a></li>
+            <li><a href={makeLangHref('fr')}><Image src={flagImgP2} alt="FR" class="w-8"></Image></a></li>
           </ul>
         </details>
       </li>

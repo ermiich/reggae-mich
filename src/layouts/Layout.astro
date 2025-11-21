@@ -1,18 +1,22 @@
 ---
 import '../styles/global.css';
 const { lang = 'en' } = Astro.props;
+import logo from '../assets/logos/koj_logo.png';
+const logoHref = typeof logo === 'string' ? logo : (logo && (logo.src)) || '/favicon.svg';
+import ReviewModal from '../components/ReviewModal.astro';
 ---
 
 <!doctype html>
 <html lang={lang}>
 	<head>
-		<meta charset="UTF-8" />
+		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={logoHref} />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 	</head>
 	<body class="bg-linear-to-br from-green-950 via-yellow-900 to-red-950">
+		<ReviewModal lang={lang} reviewUrl={"https://g.page/r/CdWgY7k2Y3gGEAI/review"} />
 		<slot />
 	</body>
 </html>

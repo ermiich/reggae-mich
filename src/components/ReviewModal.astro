@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import { translations, defaultLocale } from '../data/i18n';
+
+// Props: lang (optional) and reviewUrl
+const { lang = defaultLocale } = Astro.props;
+const t = translations[lang as keyof typeof translations] ?? translations[defaultLocale];
+import qr from '../assets/utils/qr_reviews.png';
+
+---
+
+<div id="review-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4" data-titles={JSON.stringify(Array.isArray(t?.reviewModal?.title) ? t.reviewModal.title : [t?.reviewModal?.title ?? 'Leave a review'])}>
+  <div class="bg-linear-to-br from-green-900 via-yellow-900 to-red-900 rounded-lg p-4 w-full max-w-md sm:max-w-lg mx-auto text-center max-h-[90vh] overflow-auto outline-6 outline-red-600">
+    <div class="flex flex-col items-center gap-4">
+      <h3 id="review-modal-title" class="text-xl sm:text-2xl font-semibold">{Array.isArray(t?.reviewModal?.title) ? t.reviewModal.title[0] : (t?.reviewModal?.title ?? 'Leave a review')}</h3>
+      <div class="flex justify-center">
+        <Image src={qr} alt={t?.reviewModal?.alt ?? 'QR to leave a review'} class="w-80 h-80 sm:w-100 sm:h-100 object-contain outline-4 outline-green-600 rounded" />
+      </div>
+      <p class="px-2">{t?.reviewModal?.body ?? 'Scan the QR or click the button below to leave a review.'}</p>
+      <div class="flex gap-3 justify-center mt-2">
+        <a href='https://search.google.com/local/writereview?placeid=ChIJ___z3dKZagwR8JejtFXNEpg&utm_source=GOOGLE+REVIEW&utm_medium=STICKER&utm_campaign=BEN' target="_blank" rel="noopener" class="btn bg-green-600">{t?.reviewModal?.button ?? 'Leave a review'}</a>
+        <button id="review-modal-close" class="btn">{t?.reviewModal?.close ?? 'Close'}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const modalId = 'review-modal';
+    const closeId = 'review-modal-close';
+    const showDelay = 1000 ; // 7 seconds
+
+    function showModal(){
+      const modal = document.getElementById(modalId);
+      if(!modal) return;
+      // choose a random title from data attribute each time modal is shown
+      try {
+        const data = modal.dataset && modal.dataset.titles;
+        if (data) {
+          const titles = JSON.parse(data);
+          if (Array.isArray(titles) && titles.length > 0) {
+            const titleEl = document.getElementById('review-modal-title');
+            if (titleEl) {
+              const chosen = titles[Math.floor(Math.random() * titles.length)];
+              titleEl.textContent = chosen;
+            }
+          }
+        }
+      } catch (err) {
+        // ignore parse errors
+      }
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal(){
+      const modal = document.getElementById(modalId);
+      if(!modal) return;
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // show after delay
+    const timer = setTimeout(showModal, showDelay);
+
+    // close by button
+    document.addEventListener('click', function (e) {
+      const target = e.target as HTMLElement | null;
+      if (target && target.id === closeId) {
+        hideModal();
+        clearTimeout(timer);
+      }
+    });
+
+    // close clicking outside modal content
+    document.addEventListener('click', function (e) {
+      const modal = document.getElementById(modalId);
+      if(!modal) return;
+      if (e.target === modal) {
+        hideModal();
+        clearTimeout(timer);
+      }
+    });
+
+    // close with Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        hideModal();
+        clearTimeout(timer);
+      }
+    });
+  })();
+</script>
