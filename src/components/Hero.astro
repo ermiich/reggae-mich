@@ -1,16 +1,20 @@
 ---
 const { welcomeMsg, mWords } = Astro.props;
+import { Image } from 'astro:assets';
+import bg3 from '../assets/hero/background3.webp';
+import bg2 from '../assets/hero/background2.jpg';
+import bg1 from '../assets/hero/background1.jpg';
 
 ---
 
-<div
-	class="hero min-h-screen"
-	style="background-image: url(/hero/background3.webp);"
-	id="hero-background"
->
-	<div class="hero-overlay bg-black/70"></div>
-	<div class="hero-content text-neutral-content text-center w-full">
-		<div class="w-full flex flex-col items-center">
+<div class="hero relative min-h-screen overflow-hidden" id="hero-background">
+  <Image src={bg3} alt="hero background 3" class="hero-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" loading="eager" decoding="async" />
+  <Image src={bg2} alt="hero background 2" class="hero-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" loading="eager" decoding="async" />
+  <Image src={bg1} alt="hero background 1" class="hero-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" loading="eager" decoding="async" />
+
+  <div class="hero-overlay bg-black/70 absolute inset-0"></div>
+  <div class="hero-content text-neutral-content text-center w-full relative z-10">
+    <div class="w-full flex flex-col items-center">
       <h1
         class="mb-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-300 w-full flex flex-col items-center px-4 text-center leading-tight wrap-break-word"
       >
@@ -29,21 +33,23 @@ const { welcomeMsg, mWords } = Astro.props;
 
 <script>
   if (typeof window !== 'undefined') {
-    const heroBackground = document.getElementById('hero-background');
-    const images = ['/hero/background3.webp','/hero/background2.jpg', '/hero/background1.jpg' ];
+    const imgs = Array.from(document.querySelectorAll('.hero-img')) as HTMLImageElement[];
     let currentIndex = 0;
-
-    if (heroBackground) {
+    const len = imgs.length;
+    if (len > 1) {
       setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        heroBackground.style.backgroundImage = `url(${images[currentIndex]})`;
+        const next = (currentIndex + 1) % len;
+        // fade out current, fade in next
+        imgs[currentIndex].classList.remove('opacity-100');
+        imgs[currentIndex].classList.add('opacity-0');
+        imgs[next].classList.remove('opacity-0');
+        imgs[next].classList.add('opacity-100');
+        currentIndex = next;
       }, 5000);
     }
   }
 </script>
 
 <style>
-  #hero-background {
-    transition: background-image 1s ease-in-out;
-  }
+  .hero-img { transition: opacity 1s ease-in-out; }
 </style>

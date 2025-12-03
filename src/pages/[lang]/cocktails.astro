@@ -9,6 +9,7 @@ import flagP1 from '../../assets/flags/eng.svg';
 import flagP2 from '../../assets/flags/fr.svg';
 import mojitoImg from '../../assets/menu/mojito.webp';
 import Image from 'astro/components/Image.astro';
+import CocktailSection from '../../components/Cocktails/CocktailSection.astro';
 
 export async function getStaticPaths() {
   return locales.map((l) => ({ params: { lang: l } }));
@@ -18,6 +19,19 @@ const { lang } = Astro.params;
 const currentPath = new URL(Astro.request.url).pathname;
 const canonical = new URL(Astro.request.url).href;
 const t = translations[lang as keyof typeof translations] ?? translations[defaultLocale];
+
+// Build a drinks array for the CocktailSection using the 'cocktails' menu items
+const cocktailsSection = t.menu?.sections?.find((s: any) => s.id === 'cocktails');
+const drinks = (cocktailsSection?.items ?? []).map((item: any, i: number) => ({
+  id: `cocktail-${i}`,
+  title: item.name,
+  subtitle: item.description,
+  types: [item.name],
+  image: mojitoImg,
+  imageAlt: item.name,
+  reverse: false,
+  variant: 'cocktail'
+}));
 
 ---
 
@@ -42,14 +56,17 @@ const t = translations[lang as keyof typeof translations] ?? translations[defaul
 <Layout lang={lang}>
   <Header flagImg={flag} flagImgP1={flagP1} flagImgP2={flagP2} currentLang={lang} currentPath={currentPath} homeTxt={t.home} cocktailsTxt={t.cocktails} contactTxt={t.contact} />
 
-  <main class="p-6 h-fit bg-linear-to-br from-green-950 via-yellow-900 to-red-900">
+  <main class=" h-fit bg-linear-to-br from-green-950 via-yellow-900 to-red-900">
     <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold animate-pulse mb-4 py-12 text-center">{t.cocktails}</h1>
 
-    <nav class="mb-6 flex gap-2 flex-wrap justify-center">
+    <nav class=" flex gap-2 flex-wrap justify-center">
       {t.menu.sections.map(section => (
         <a class="btn btn-sm" href={`#${section.id}`}>{section.title}</a>
       ))}
     </nav>
+
+    <!-- Render the CocktailSection component first (uses optimized images) -->
+    <CocktailSection drinks={drinks} />
 
     <section class="space-y-8">
       {t.menu.sections.map(section => (

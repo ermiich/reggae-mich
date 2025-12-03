@@ -14,7 +14,7 @@ import qr from '../assets/utils/qr_reviews.png';
     <div class="flex flex-col items-center gap-4">
       <h3 id="review-modal-title" class="text-xl sm:text-2xl font-semibold">{Array.isArray(t?.reviewModal?.title) ? t.reviewModal.title[0] : (t?.reviewModal?.title ?? 'Leave a review')}</h3>
       <div class="flex justify-center">
-        <Image src={qr} alt={t?.reviewModal?.alt ?? 'QR to leave a review'} class="w-80 h-80 sm:w-100 sm:h-100 object-contain outline-4 outline-green-600 rounded" />
+        <Image id="review-qr-img" src={qr} alt={t?.reviewModal?.alt ?? 'QR to leave a review'} loading="lazy" decoding="async" fetchpriority="low" class="w-60 h-60 sm:w-60 sm:h-60 object-contain outline-4 outline-green-600 rounded" />
       </div>
       <p class="px-2">{t?.reviewModal?.body ?? 'Scan the QR or click the button below to leave a review.'}</p>
       <div class="flex gap-3 justify-center mt-2">
@@ -29,7 +29,7 @@ import qr from '../assets/utils/qr_reviews.png';
   (function(){
     const modalId = 'review-modal';
     const closeId = 'review-modal-close';
-    const showDelay = 1000 ; // 7 seconds
+    const showDelay = 6000 ; // 7 seconds
 
     function showModal(){
       const modal = document.getElementById(modalId);
@@ -63,15 +63,19 @@ import qr from '../assets/utils/qr_reviews.png';
       document.body.style.overflow = '';
     }
 
-    // show after delay
-    const timer = setTimeout(showModal, showDelay);
+    // schedule showing the modal after the page has fully loaded so it cannot
+    // interfere with LCP. Keep a reference to the timer so we can cancel it.
+    let timer = null;
+    window.addEventListener('load', function () {
+      timer = setTimeout(showModal, showDelay);
+    });
 
     // close by button
     document.addEventListener('click', function (e) {
       const target = e.target as HTMLElement | null;
       if (target && target.id === closeId) {
         hideModal();
-        clearTimeout(timer);
+        if (timer) clearTimeout(timer);
       }
     });
 
@@ -81,7 +85,7 @@ import qr from '../assets/utils/qr_reviews.png';
       if(!modal) return;
       if (e.target === modal) {
         hideModal();
-        clearTimeout(timer);
+        if (timer) clearTimeout(timer);
       }
     });
 
@@ -89,8 +93,13 @@ import qr from '../assets/utils/qr_reviews.png';
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         hideModal();
-        clearTimeout(timer);
+        if (timer) clearTimeout(timer);
       }
     });
+    
+    // Note: we intentionally do NOT touch the Image component here. The Image
+    // is rendered with `loading="lazy"` and `fetchpriority="low"`, and the
+    // modal is scheduled after `window.load` — together these measures reduce
+    // the chance that the QR image affects LCP.
   })();
 </script>

@@ -66,10 +66,10 @@ export const translations = {
           id: 'cocktails',
           title: 'Cócteles',
           items: [
-            { name: 'Reggae Sunset', description: 'Ron, zumo de naranja, granadina y un toque de lima.', price: '8€' },
-            { name: 'Tropical Vibes', description: 'Vodka, mango, maracuyá y soda.', price: '9€' },
-            { name: 'Caribbean Dream', description: 'Ron, piña, coco y un toque de lima.', price: '8.5€' },
-            { name: 'Mojito Reggae', description: 'Ron, hierbabuena, lima y azúcar.', price: '7.5€' }
+            { name: 'Mojito', description: 'Ron blanco, hierbabuena, lima y azúcar.', price: '7.5€' },
+            { name: 'Piña Colada', description: 'Ron, crema de coco y jugo de piña.', price: '8€' },
+            { name: 'Daiquiri', description: 'Ron, jugo de lima y sirope simple, servido frío.', price: '8€' },
+            { name: 'Caipiroska', description: 'Vodka, lima y azúcar machacados.', price: '7€' }
           ]
         },
         {
@@ -180,10 +180,10 @@ export const translations = {
           id: 'cocktails',
           title: 'Cocktails',
           items: [
-            { name: 'Reggae Sunset', description: 'Rum, orange juice, grenadine and a touch of lime.', price: '€8' },
-            { name: 'Tropical Vibes', description: 'Vodka, mango, passion fruit and soda.', price: '€9' },
-            { name: 'Caribbean Dream', description: 'Rum, pineapple, coconut and a hint of lime.', price: '€8.5' },
-            { name: 'Reggae Mojito', description: 'Rum, mint, lime and sugar.', price: '€7.5' }
+            { name: 'Mojito', description: 'White rum, mint, lime and sugar.', price: '€7.5' },
+            { name: 'Piña Colada', description: 'Rum, coconut cream and pineapple juice.', price: '€8' },
+            { name: 'Daiquiri', description: 'Rum, lime juice and simple syrup, served chilled.', price: '€8' },
+            { name: 'Caipiroska', description: 'Vodka, lime and sugar crushed together.', price: '€7' }
           ]
         },
         {
@@ -294,10 +294,10 @@ export const translations = {
           id: 'cocktails',
           title: 'Cocktails',
           items: [
-            { name: 'Reggae Sunset', description: 'Rhum, jus d\'orange, grenadine et une touche de citron vert.', price: '8€' },
-            { name: 'Tropical Vibes', description: 'Vodka, mangue, fruit de la passion et soda.', price: '9€' },
-            { name: 'Rêve des Caraïbes', description: 'Rhum, ananas, coco et une pointe de citron vert.', price: '8.5€' },
-            { name: 'Mojito Reggae', description: 'Rhum, menthe, citron vert et sucre.', price: '7.5€' }
+            { name: 'Mojito', description: 'Rhum blanc, menthe, citron vert et sucre.', price: '7.5€' },
+            { name: 'Piña Colada', description: 'Rhum, crème de coco et jus d\'ananas.', price: '8€' },
+            { name: 'Daiquiri', description: 'Rhum, jus de citron vert et sirop simple, servi frais.', price: '8€' },
+            { name: 'Caipiroska', description: 'Vodka, citron vert et sucre écrasés.', price: '7€' }
           ]
         },
         {

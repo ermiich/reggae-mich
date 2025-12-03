@@ -7,6 +7,8 @@ import Hero from '../../components/Hero.astro';
 import Offers from '../../components/Offers.astro';
 import Separator from '../../components/Layout/Separator.astro';
 import RatingSection from '../../components/RatingComponent/RatingSection.astro';
+import CocktailSection from '../../components/Cocktails/CocktailSection.astro';
+import mojitoImg from '../../assets/menu/mojito.webp';
 import flag from '../../assets/flags/esp.svg';
 import flagP1 from '../../assets/flags/eng.svg';
 import flagP2 from '../../assets/flags/fr.svg';
@@ -30,6 +32,25 @@ const headerSection = {
   cocktailsTxt: t.cocktails,
   contactTxt: t.contact
 };
+
+// sample drinks for the cocktails section (uses optimized asset import)
+const drinkss = [
+  { id: 'mojito', title: 'Mojito', subtitle: 'Clásico, Mango, Fresa, Frutos Rojos, Maracuyá', types: ['Clásico','Mango','Fresa','Frutos Rojos','Maracuyá'], image: mojitoImg, imageAlt: 'Mojito en vaso', reverse: true, variant: 'mojito' },
+  { id: 'pina', title: 'Piña Colada', subtitle: 'Clásico, Mango, Fresa y más', types: ['Clásico','Mango','Fresa','Passion Fruit'], image: mojitoImg, imageAlt: 'Piña colada en vaso', variant: 'pinacolada' }
+];
+
+// Build a drinks array for the CocktailSection using the 'cocktails' menu items
+const cocktailsSection = t.menu?.sections?.find((s: any) => s.id === 'cocktails');
+const drinks = (cocktailsSection?.items ?? []).map((item: any, i: number) => ({
+  id: `cocktail-${i}`,
+  title: item.name,
+  subtitle: item.description,
+  types: [item.name],
+  image: mojitoImg,
+  imageAlt: item.name,
+  reverse: false,
+  variant: 'cocktail'
+}));
 
 ---
 
@@ -55,6 +76,8 @@ const headerSection = {
   <Hero welcomeMsg={t.welcomeMsg} mWords={t.mWords} />
   <Separator />
   <Offers sectionTitle={t.offerTitle} offers={t.offers} />
+  <Separator />
+  <CocktailSection drinks={drinks} />
   <Separator />
   <RatingSection sectionTitle={t.ratingTitle} />
   <Footer />

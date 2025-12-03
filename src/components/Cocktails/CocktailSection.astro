@@ -1,0 +1,26 @@
+---
+import CocktailItemImageLeft from "./CocktailItemImageLeft.astro";
+import CocktailItemTextLeft from "./CocktailItemTextLeft.astro";
+// drinks: array of { id, title, subtitle, types: string[], image }
+const { drinks = [] } = Astro.props;
+---
+
+<section class="cocktail-section">
+		<div class="w-full max-w-[1000px] grid gap-6 mx-auto p-6 pt-0">
+	<div class="carousel carousel-vertical h-96 w-full">
+			{
+				drinks.map((d, i) =>
+					i % 2 === 0 ? (
+						<div class="carousel-item h-full w-full">
+							<CocktailItemImageLeft drink={d} />
+						</div>
+					) : (
+						<div class="carousel-item h-full w-full">
+							<CocktailItemTextLeft drink={d} />
+						</div>
+					)
+				)
+			}
+		</div>
+	</div>
+</section>

@@ -3,19 +3,20 @@ const { title, description, canonical, image, lang, business } = Astro.props;
 import defaultLogo from '../assets/logos/koj_logo.png';
 const defaultLogoHref = typeof defaultLogo === 'string' ? defaultLogo : (defaultLogo && defaultLogo.src) || '/assets/logos/koj_logo.png';
 const siteImage = image ?? defaultLogoHref;
-const siteCanonical = canonical ?? new URL(Astro.request.url).href;
+// SITE_ROOT constant: prefer env `PUBLIC_SITE_URL` or `SITE_URL`; otherwise fallback to request origin
+const requestPath = (() => { try { return new URL(Astro.request.url).pathname; } catch { return '/'; } })();
+const envRoot = (process.env.PUBLIC_SITE_URL ?? process.env.SITE_URL) as string | undefined;
+const SITE_ROOT = 'http://dev-koj.free.nf/';
+const siteCanonical = SITE_ROOT + requestPath;
+
 // Ensure image URLs used for social metadata are absolute — social crawlers require full URLs
 function toAbsoluteUrl(urlStr: unknown) {
   try {
-    if (!urlStr) return urlStr;
+    if (!urlStr) return '';
     const s = String(urlStr);
-    // already absolute
-    if (s.startsWith('http://') || s.startsWith('https://') || s.startsWith('//')) {
-      return s;
-    }
-    // resolve relative to canonical origin
-    const base = new URL(siteCanonical).origin;
-    return new URL(s, base).href;
+    if (s.startsWith('http://') || s.startsWith('https://') || s.startsWith('//')) return s;
+    // resolve relative to SITE_ROOT so build-time meta tags point to production domain when provided
+    return new URL(s, SITE_ROOT).href;
   } catch (err) {
     return String(urlStr);
   }
@@ -71,4 +72,4 @@ const jsonLdString = JSON.stringify(businessJson);
   <!-- Provide canonical absolute image for other crawlers -->
   <meta itemprop="image" content={siteImageAbsolute} />
 
-  <script type="application/ld+json">{jsonLdString}</script>
+  <script type="application/ld+json">{jsonLdString.to}</script>
