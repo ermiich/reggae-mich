@@ -5,18 +5,18 @@ import CocktailItemTextLeft from "./CocktailItemTextLeft.astro";
 const { drinks = [] } = Astro.props;
 ---
 
-<section class="cocktail-section">
-		<div class="w-full max-w-[1000px] grid gap-6 mx-auto p-6 pt-0">
-	<div class="carousel carousel-vertical h-96 w-full">
+<section class="cocktail-section w-full">
+		<div class="w-full  grid gap-6 mx-auto pt-0">
+	<div class="carousel carousel-vertical h-screen w-full">
 			{
 				drinks.map((d, i) =>
 					i % 2 === 0 ? (
 						<div class="carousel-item h-full w-full">
-							<CocktailItemImageLeft drink={d} />
+							<CocktailItemImageLeft drink={d} backgroundImage={d.backgroundImage} />
 						</div>
 					) : (
 						<div class="carousel-item h-full w-full">
-							<CocktailItemTextLeft drink={d} />
+							<CocktailItemTextLeft drink={d} backgroundImage={d.backgroundImage} />
 						</div>
 					)
 				)

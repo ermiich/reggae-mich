@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Layout/Header.astro';
 import Seo from '../../components/Seo.astro';
 import Footer from '../../components/Layout/Footer.astro';
-import { locales, translations, defaultLocale } from '../../data/i18n';
+import { locales, translations, defaultLocale, menu } from '../../data/i18n';
 import flag from '../../assets/flags/esp.svg';
 import flagP1 from '../../assets/flags/eng.svg';
 import flagP2 from '../../assets/flags/fr.svg';
@@ -20,15 +20,16 @@ const currentPath = new URL(Astro.request.url).pathname;
 const canonical = new URL(Astro.request.url).href;
 const t = translations[lang as keyof typeof translations] ?? translations[defaultLocale];
 
-// Build a drinks array for the CocktailSection using the 'cocktails' menu items
-const cocktailsSection = t.menu?.sections?.find((s: any) => s.id === 'cocktails');
+// Build a drinks array for the CocktailSection using the consolidated `menu`
+const cocktailsSection = menu.sections.find((s: any) => s.id === 'cocktails');
 const drinks = (cocktailsSection?.items ?? []).map((item: any, i: number) => ({
   id: `cocktail-${i}`,
-  title: item.name,
-  subtitle: item.description,
-  types: [item.name],
+  title: item.name?.[lang] ?? item.name?.[defaultLocale] ?? item.id,
+  subtitle: item.description?.[lang] ?? item.description?.[defaultLocale] ?? '',
+  types: [item.name?.[lang] ?? item.name?.[defaultLocale] ?? item.id],
   image: mojitoImg,
-  imageAlt: item.name,
+  backgroundImage: item.backgroundImage ? item.backgroundImage : mojitoImg,
+  imageAlt: item.name?.[lang] ?? item.name?.[defaultLocale] ?? item.id,
   reverse: false,
   variant: 'cocktail'
 }));
@@ -60,69 +61,17 @@ const drinks = (cocktailsSection?.items ?? []).map((item: any, i: number) => ({
     <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold animate-pulse mb-4 py-12 text-center">{t.cocktails}</h1>
 
     <nav class=" flex gap-2 flex-wrap justify-center">
-      {t.menu.sections.map(section => (
-        <a class="btn btn-sm" href={`#${section.id}`}>{section.title}</a>
+      {menu.sections.map(section => (
+        <a class="btn btn-sm" href={`#${section.id}`}>{section.title?.[lang] ?? section.title?.[defaultLocale] ?? section.id}</a>
       ))}
     </nav>
 
     <!-- Render the CocktailSection component first (uses optimized images) -->
     <CocktailSection drinks={drinks} />
 
-    <section class="space-y-8">
-      {t.menu.sections.map(section => (
-        <div id={section.id} class="card bg-neutral/30 shadow-sm p-4">
-          <h2 class="text-2xl font-semibold mb-3">{section.title}</h2>
-          {section.id === 'cocktails' ? (
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {section.items.map(item => (
-                <article class="card bg-neutral/30 shadow-sm p-3 flex flex-col">
-                  <div class="p-2 w-full h-60 overflow-hidden rounded mb-3">
-                    <Image src={mojitoImg} alt={item.name} class="w-full h-full object-cover rounded" />
-                  </div>
-                  <div class="flex-1">
-                    <h3 class="font-semibold text-lg">{item.name}</h3>
-                    <p class="text-sm text-muted mt-1">{item.description}</p>
-                  </div>
-                  <div class="mt-3 font-medium">{item.price}</div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <ul class="space-y-2">
-              {section.items.map(item => (
-                <li class="flex justify-between items-start">
-                  <div>
-                    <div class="font-semibold">{item.name}</div>
-                    <div class="text-sm text-muted">{item.description}</div>
-                  </div>
-                  <div class="font-medium ml-4">{item.price}</div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))}
-    </section>
+    
   </main>
 
   <Footer />
 </Layout>
 
-<style>
-  section.space-y-8 > .card:nth-child(1) {
-    outline: 2px solid #00c81eff; /* green */
-  }
-  section.space-y-8 > .card:nth-child(2) {
-    outline: 2px solid #80ce01ff; /* lime / yellow-green */
-  }
-  section.space-y-8 > .card:nth-child(3) {
-    outline: 2px solid #f0f000ff; 
-  }
-  section.space-y-8 > .card:nth-child(4) {
-    outline: 2px solid #ef8344ff; 
-  }
-  section.space-y-8 > .card:nth-child(5) {
-    outline: 2px solid #dc2626; 
-  }
-
-</style>

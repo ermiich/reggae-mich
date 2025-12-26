@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import googleLogo from "../../assets/logos/google_text.webp";
 import tripadvisorLogo from "../../assets/logos/tripadvisor_logo.png";
+import guruLogo from "../../assets/logos/guru_logo.png";
+
 import RatingCard from "./RatingCard.astro";
 
 const {sectionTitle} = Astro.props;
@@ -10,8 +12,9 @@ const {sectionTitle} = Astro.props;
 <section class="pt-4 pb-8">
 	<h2 class="text-2xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold animate-pulse text-center">{sectionTitle}</h2>
   <div class="flex flex-col md:flex-row md:justify-around items-center pt-10 space-y-4 md:space-y-0 md:space-x-6">
-    <RatingCard reviews={900} rating={"5.0"} imageSrc={googleLogo} orderNum={"5"} />
-    <RatingCard reviews={900} rating={"5.0"} imageSrc={tripadvisorLogo} orderNum={"6"} />
-  <link href="https://awards.infcdn.net/2024/r_gold.css" rel="stylesheet"/><div id="b-gold" onclick="if(event.target.nodeName.toLowerCase() != 'a') {window.open(this.querySelector('.b-gold_r-link').href);return 0;}"> <a href="https://es.restaurantguru.com/King-Of-Judah-Reggae-Bar-Santa-Cruz-de-Tenerife" class="b-gold_r-link" target="blank">King of Judah Cocktails Reggae Bar</a> <p class="b-gold_center">Recomendado</p> <a href="https://restaurantguru.com" class="b-gold_link" target="_blank">Restaurant Guru</a> <p class="b-gold_year">2025</p></div>
+    <RatingCard reviews={900} rating={"5.0"} imageSrc={googleLogo} orderNum={"5"} href="https://www.google.com/search?sxsrf=AE3TifNxKqrVn8kq-7h4fhVsv7NpMWkosw:1765405177677&q=King+of+Judah+Cocktails+Reggae+Bar+Rese%C3%B1as&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNLA0tTAwMTMzNDQ2NjI2NzIxM9nAyPiKUds7My9dIT9Nwas0JTFDwTk_ObskMTOnWCEoNT09MVXBKbEIyCxOPbwxsXgRKymqASItXy53AAAA&rldimm=10958046611332372464&tbm=lcl#lkt=LocalPoiReviews"/>
+    <RatingCard reviews={900} rating={"5.0"} imageSrc={tripadvisorLogo} orderNum={"6"} href="https://www.tripadvisor.com/Attraction_Review-g187482-d13817854-Reviews-King_Of_Judah_Reggae_Bar-Santa_Cruz_de_Tenerife_Tenerife_Canary_Islands.html"/>
+    <RatingCard reviews={900} rating={"5.0"} imageSrc={guruLogo} orderNum={"7"} href="https://es.restaurantguru.com/King-Of-Judah-Reggae-Bar-Santa-Cruz-de-Tenerife"/>
+  
   </div>
 </section>

@@ -12,7 +12,7 @@ import mojitoImg from '../../assets/menu/mojito.webp';
 import flag from '../../assets/flags/esp.svg';
 import flagP1 from '../../assets/flags/eng.svg';
 import flagP2 from '../../assets/flags/fr.svg';
-import { locales, translations, defaultLocale } from '../../data/i18n';
+import { locales, translations, defaultLocale, menu } from '../../data/i18n';
 
 export async function getStaticPaths() {
   return locales.map((l) => ({ params: { lang: l } }));
@@ -40,16 +40,17 @@ const drinkss = [
 ];
 
 // Build a drinks array for the CocktailSection using the 'cocktails' menu items
-const cocktailsSection = t.menu?.sections?.find((s: any) => s.id === 'cocktails');
+const cocktailsSection = menu.sections.find((s: any) => s.id === 'cocktails');
 const drinks = (cocktailsSection?.items ?? []).map((item: any, i: number) => ({
   id: `cocktail-${i}`,
-  title: item.name,
-  subtitle: item.description,
-  types: [item.name],
+  title: item.name?.[lang] ?? item.name?.[defaultLocale] ?? item.id,
+  subtitle: item.description?.[lang] ?? item.description?.[defaultLocale] ?? '',
+  types: [item.name?.[lang] ?? item.name?.[defaultLocale] ?? item.id],
   image: mojitoImg,
-  imageAlt: item.name,
+  imageAlt: item.name?.[lang] ?? item.name?.[defaultLocale] ?? item.id,
   reverse: false,
-  variant: 'cocktail'
+  variant: 'cocktail',
+  backgroundImage: item.backgroundImage ? item.backgroundImage : mojitoImg
 }));
 
 ---
@@ -74,8 +75,6 @@ const drinks = (cocktailsSection?.items ?? []).map((item: any, i: number) => ({
 <Layout lang={lang}>
   <Header flagImg={headerSection.flagImg} flagImgP1={headerSection.flagImgP1} flagImgP2={headerSection.flagImgP2} currentLang={headerSection.currentLang} currentPath={currentPath} homeTxt={headerSection.homeTxt} cocktailsTxt={headerSection.cocktailsTxt} contactTxt={headerSection.contactTxt} />
   <Hero welcomeMsg={t.welcomeMsg} mWords={t.mWords} />
-  <Separator />
-  <Offers sectionTitle={t.offerTitle} offers={t.offers} />
   <Separator />
   <CocktailSection drinks={drinks} />
   <Separator />

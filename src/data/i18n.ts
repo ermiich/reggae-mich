@@ -60,60 +60,7 @@ export const translations = {
       }
     ]
     ,
-    menu: {
-      sections: [
-        {
-          id: 'cocktails',
-          title: 'Cócteles',
-          items: [
-            { name: 'Mojito', description: 'Ron blanco, hierbabuena, lima y azúcar.', price: '7.5€' },
-            { name: 'Piña Colada', description: 'Ron, crema de coco y jugo de piña.', price: '8€' },
-            { name: 'Daiquiri', description: 'Ron, jugo de lima y sirope simple, servido frío.', price: '8€' },
-            { name: 'Caipiroska', description: 'Vodka, lima y azúcar machacados.', price: '7€' }
-          ]
-        },
-        {
-          id: 'copas',
-          title: 'Copas',
-          items: [
-            { name: 'Copa House', description: 'Mezcla especial de la casa.', price: '7€' },
-            { name: 'Copa Premium', description: 'Licor premium y aderezos.', price: '10€' },
-            { name: 'Copa Tropical', description: 'Cóctel afrutado servido en copa grande.', price: '8€' },
-            { name: 'Copa Clásica', description: 'Selección clásica de la casa.', price: '7.5€' }
-          ]
-        },
-        {
-          id: 'beers',
-          title: 'Cervezas',
-          items: [
-            { name: 'Cerveza Local', description: 'Cerveza de barril local.', price: '4€' },
-            { name: 'Cerveza Internacional', description: 'Selección importada.', price: '5€' },
-            { name: 'Cerveza Artesanal', description: 'Selección de cervezas artesanas.', price: '5.5€' },
-            { name: 'Cerveza Sin Alcohol', description: 'Opción sin alcohol para disfrutar.', price: '3.5€' }
-          ]
-        },
-        {
-          id: 'shots',
-          title: 'Chupitos',
-          items: [
-            { name: 'Shot Jamaica', description: 'Ron especiado con toque cítrico.', price: '3€' },
-            { name: 'Shot Fire', description: 'Licor picante para valientes.', price: '3€' },
-            { name: 'Shot Coco', description: 'Licor de coco con toque dulce.', price: '3€' },
-            { name: 'Shot Limón', description: 'Explosión cítrica para despertar.', price: '3€' }
-          ]
-        },
-        {
-          id: 'soft',
-          title: 'Refrescos',
-          items: [
-            { name: 'Refresco Cola', description: 'Refresco clásico.', price: '2.5€' },
-            { name: 'Agua', description: 'Agua mineral.', price: '2€' },
-            { name: 'Zumo de Naranja', description: 'Zumo recién exprimido.', price: '3€' },
-            { name: 'Té Helado', description: 'Té frío con limón.', price: '2.5€' }
-          ]
-        }
-      ]
-    }
+    // menu moved to top-level `menu` export (localized fields)
   },
   en: {
     home: 'Home',
@@ -174,60 +121,7 @@ export const translations = {
       }
     ]
     ,
-    menu: {
-      sections: [
-        {
-          id: 'cocktails',
-          title: 'Cocktails',
-          items: [
-            { name: 'Mojito', description: 'White rum, mint, lime and sugar.', price: '€7.5' },
-            { name: 'Piña Colada', description: 'Rum, coconut cream and pineapple juice.', price: '€8' },
-            { name: 'Daiquiri', description: 'Rum, lime juice and simple syrup, served chilled.', price: '€8' },
-            { name: 'Caipiroska', description: 'Vodka, lime and sugar crushed together.', price: '€7' }
-          ]
-        },
-        {
-          id: 'copas',
-          title: 'Glasses',
-          items: [
-            { name: 'House Glass', description: 'House mix.', price: '€7' },
-            { name: 'Premium Glass', description: 'Premium liquor and garnishes.', price: '€10' },
-            { name: 'Tropical Glass', description: 'Fruity cocktail served in a large glass.', price: '€8' },
-            { name: 'Classic Glass', description: 'Classic house selection.', price: '€7.5' }
-          ]
-        },
-        {
-          id: 'beers',
-          title: 'Beers',
-          items: [
-            { name: 'Local Beer', description: 'Local draft beer.', price: '€4' },
-            { name: 'International Beer', description: 'Imported selection.', price: '€5' },
-            { name: 'Craft Beer', description: 'Selection of craft brews.', price: '€5.5' },
-            { name: 'Non-Alcoholic Beer', description: 'Alcohol-free option to enjoy.', price: '€3.5' }
-          ]
-        },
-        {
-          id: 'shots',
-          title: 'Shots',
-          items: [
-            { name: 'Shot Jamaica', description: 'Spiced rum with a citrus touch.', price: '€3' },
-            { name: 'Shot Fire', description: 'Spicy liquor for the brave.', price: '€3' },
-            { name: 'Coco Shot', description: 'Coconut liqueur with a sweet finish.', price: '€3' },
-            { name: 'Lime Shot', description: 'Citrus burst to wake you up.', price: '€3' }
-          ]
-        },
-        {
-          id: 'soft',
-          title: 'Soft Drinks',
-          items: [
-            { name: 'Cola', description: 'Classic soda.', price: '€2.5' },
-            { name: 'Water', description: 'Mineral water.', price: '€2' },
-            { name: 'Orange Juice', description: 'Freshly squeezed juice.', price: '€3' },
-            { name: 'Iced Tea', description: 'Cold tea with lemon.', price: '€2.5' }
-          ]
-        }
-      ]
-    }
+    // menu moved to top-level `menu` export (localized fields)
   },
   fr: {
     home: 'Accueil',
@@ -288,61 +182,100 @@ export const translations = {
       }
     ]
     ,
-    menu: {
-      sections: [
-        {
-          id: 'cocktails',
-          title: 'Cocktails',
-          items: [
-            { name: 'Mojito', description: 'Rhum blanc, menthe, citron vert et sucre.', price: '7.5€' },
-            { name: 'Piña Colada', description: 'Rhum, crème de coco et jus d\'ananas.', price: '8€' },
-            { name: 'Daiquiri', description: 'Rhum, jus de citron vert et sirop simple, servi frais.', price: '8€' },
-            { name: 'Caipiroska', description: 'Vodka, citron vert et sucre écrasés.', price: '7€' }
-          ]
-        },
-        {
-          id: 'copas',
-          title: 'Coupes',
-          items: [
-            { name: 'Coupe Maison', description: 'Mélange spécial de la maison.', price: '7€' },
-            { name: 'Coupe Premium', description: 'Liqueur premium et garnitures.', price: '10€' },
-            { name: 'Coupe Tropicale', description: 'Cocktail fruité servi dans une coupe.', price: '8€' },
-            { name: 'Coupe Classique', description: 'Sélection classique de la maison.', price: '7.5€' }
-          ]
-        },
-        {
-          id: 'beers',
-          title: 'Bières',
-          items: [
-            { name: 'Bière Locale', description: 'Bière pression locale.', price: '4€' },
-            { name: 'Bière Internationale', description: 'Sélection importée.', price: '5€' },
-            { name: 'Bière Artisanale', description: 'Sélection de bières artisanales.', price: '5.5€' },
-            { name: 'Bière Sans Alcool', description: 'Option sans alcool à déguster.', price: '3.5€' }
-          ]
-        },
-        {
-          id: 'shots',
-          title: 'Shots',
-          items: [
-            { name: 'Shot Jamaica', description: 'Rhum épicé avec une touche d\'agrumes.', price: '3€' },
-            { name: 'Shot Fire', description: 'Liqueur épicée pour les courageux.', price: '3€' },
-            { name: 'Shot Coco', description: 'Liqueur de coco avec une finale douce.', price: '3€' },
-            { name: 'Shot Citron', description: 'Explosion d\'agrumes pour réveiller.', price: '3€' }
-          ]
-        },
-        {
-          id: 'soft',
-          title: 'Boissons',
-          items: [
-            { name: 'Cola', description: 'Soda classique.', price: '2.5€' },
-            { name: 'Eau', description: 'Eau minérale.', price: '2€' },
-            { name: 'Jus d\'orange', description: 'Jus fraîchement pressé.', price: '3€' },
-            { name: 'Thé glacé', description: 'Thé froid avec citron.', price: '2.5€' }
-          ]
-        }
-      ]
-    }
+    // menu moved to top-level `menu` export (localized fields)
   }
 };
 
 export const defaultLocale = 'en';
+
+// Consolidated menu with localized fields (option B: object per language)
+export const menu = {
+  sections: [
+    {
+      id: 'cocktails',
+      title: { es: 'Cócteles', en: 'Cocktails', fr: 'Cocktails' },
+      items: [
+        {
+          id: 'mojito',
+          name: { es: 'Mojito', en: 'Mojito', fr: 'Mojito' },
+          description: {
+            es: 'Ron blanco, hierbabuena, lima y azúcar.',
+            en: 'White rum, mint, lime and sugar.',
+            fr: 'Rhum blanc, menthe, citron vert et sucre.'
+          },
+          price: { es: '7.5€', en: '€7.5', fr: '7.5€' }
+        },
+        {
+          id: 'pina-colada',
+          name: { es: 'Piña Colada', en: 'Piña Colada', fr: 'Piña Colada' },
+          description: {
+            es: 'Ron, crema de coco y jugo de piña.',
+            en: 'Rum, coconut cream and pineapple juice.',
+            fr: 'Rhum, crème de coco et jus d\'ananas.'
+          },
+          price: { es: '8€', en: '€8', fr: '8€' }
+        },
+        {
+          id: 'daiquiri',
+          name: { es: 'Daiquiri', en: 'Daiquiri', fr: 'Daiquiri' },
+          description: {
+            es: 'Ron, jugo de lima y sirope simple, servido frío.',
+            en: 'Rum, lime juice and simple syrup, served chilled.',
+            fr: 'Rhum, jus de citron vert et sirop simple, servi frais.'
+          },
+          price: { es: '8€', en: '€8', fr: '8€' }
+        },
+        {
+          id: 'caipiroska',
+          name: { es: 'Caipiroska', en: 'Caipiroska', fr: 'Caipiroska' },
+          description: {
+            es: 'Vodka, lima y azúcar machacados.',
+            en: 'Vodka, lime and sugar crushed together.',
+            fr: 'Vodka, citron vert et sucre écrasés.'
+          },
+          price: { es: '7€', en: '€7', fr: '7€' }
+        }
+      ]
+    },
+    {
+      id: 'copas',
+      title: { es: 'Copas', en: 'Glasses', fr: 'Coupes' },
+      items: [
+        { id: 'house-glass', name: { es: 'Copa House', en: 'House Glass', fr: 'Coupe Maison' }, description: { es: 'Mezcla especial de la casa.', en: 'House mix.', fr: 'Mélange spécial de la maison.' }, price: { es: '7€', en: '€7', fr: '7€' } },
+        { id: 'premium-glass', name: { es: 'Copa Premium', en: 'Premium Glass', fr: 'Coupe Premium' }, description: { es: 'Licor premium y aderezos.', en: 'Premium liquor and garnishes.', fr: 'Liqueur premium et garnitures.' }, price: { es: '10€', en: '€10', fr: '10€' } },
+        { id: 'tropical-glass', name: { es: 'Copa Tropical', en: 'Tropical Glass', fr: 'Coupe Tropicale' }, description: { es: 'Cóctel afrutado servido en copa grande.', en: 'Fruity cocktail served in a large glass.', fr: 'Cocktail fruité servi dans une coupe.' }, price: { es: '8€', en: '€8', fr: '8€' } },
+        { id: 'classic-glass', name: { es: 'Copa Clásica', en: 'Classic Glass', fr: 'Coupe Classique' }, description: { es: 'Selección clásica de la casa.', en: 'Classic house selection.', fr: 'Sélection classique de la maison.' }, price: { es: '7.5€', en: '€7.5', fr: '7.5€' } }
+      ]
+    },
+    {
+      id: 'beers',
+      title: { es: 'Cervezas', en: 'Beers', fr: 'Bières' },
+      items: [
+        { id: 'local-beer', name: { es: 'Cerveza Local', en: 'Local Beer', fr: 'Bière Locale' }, description: { es: 'Cerveza de barril local.', en: 'Local draft beer.', fr: 'Bière pression locale.' }, price: { es: '4€', en: '€4', fr: '4€' } },
+        { id: 'international-beer', name: { es: 'Cerveza Internacional', en: 'International Beer', fr: 'Bière Internationale' }, description: { es: 'Selección importada.', en: 'Imported selection.', fr: 'Sélection importée.' }, price: { es: '5€', en: '€5', fr: '5€' } },
+        { id: 'craft-beer', name: { es: 'Cerveza Artesanal', en: 'Craft Beer', fr: 'Bière Artisanale' }, description: { es: 'Selección de cervezas artesanas.', en: 'Selection of craft brews.', fr: 'Sélection de bières artisanales.' }, price: { es: '5.5€', en: '€5.5', fr: '5.5€' } },
+        { id: 'non-alcoholic-beer', name: { es: 'Cerveza Sin Alcohol', en: 'Non-Alcoholic Beer', fr: 'Bière Sans Alcool' }, description: { es: 'Opción sin alcohol para disfrutar.', en: 'Alcohol-free option to enjoy.', fr: 'Option sans alcool à déguster.' }, price: { es: '3.5€', en: '€3.5', fr: '3.5€' } }
+      ]
+    },
+    {
+      id: 'shots',
+      title: { es: 'Chupitos', en: 'Shots', fr: 'Shots' },
+      items: [
+        { id: 'shot-jamaica', name: { es: 'Shot Jamaica', en: 'Shot Jamaica', fr: 'Shot Jamaica' }, description: { es: 'Ron especiado con toque cítrico.', en: 'Spiced rum with a citrus touch.', fr: 'Rhum épicé avec une touche d\'agrumes.' }, price: { es: '3€', en: '€3', fr: '3€' } },
+        { id: 'shot-fire', name: { es: 'Shot Fire', en: 'Shot Fire', fr: 'Shot Fire' }, description: { es: 'Licor picante para valientes.', en: 'Spicy liquor for the brave.', fr: 'Liqueur épicée pour les courageux.' }, price: { es: '3€', en: '€3', fr: '3€' } },
+        { id: 'shot-coco', name: { es: 'Shot Coco', en: 'Coco Shot', fr: 'Shot Coco' }, description: { es: 'Licor de coco con toque dulce.', en: 'Coconut liqueur with a sweet finish.', fr: 'Liqueur de coco avec une finale douce.' }, price: { es: '3€', en: '€3', fr: '3€' } },
+        { id: 'shot-lime', name: { es: 'Shot Limón', en: 'Lime Shot', fr: 'Shot Citron' }, description: { es: 'Explosión cítrica para despertar.', en: 'Citrus burst to wake you up.', fr: 'Explosion d\'agrumes pour réveiller.' }, price: { es: '3€', en: '€3', fr: '3€' } }
+      ]
+    },
+    {
+      id: 'soft',
+      title: { es: 'Refrescos', en: 'Soft Drinks', fr: 'Boissons' },
+      items: [
+        { id: 'cola', name: { es: 'Refresco Cola', en: 'Cola', fr: 'Cola' }, description: { es: 'Refresco clásico.', en: 'Classic soda.', fr: 'Soda classique.' }, price: { es: '2.5€', en: '€2.5', fr: '2.5€' } },
+        { id: 'water', name: { es: 'Agua', en: 'Water', fr: 'Eau' }, description: { es: 'Agua mineral.', en: 'Mineral water.', fr: 'Eau minérale.' }, price: { es: '2€', en: '€2', fr: '2€' } },
+        { id: 'orange-juice', name: { es: 'Zumo de Naranja', en: 'Orange Juice', fr: 'Jus d\'orange' }, description: { es: 'Zumo recién exprimido.', en: 'Freshly squeezed juice.', fr: 'Jus fraîchement pressé.' }, price: { es: '3€', en: '€3', fr: '3€' } },
+        { id: 'iced-tea', name: { es: 'Té Helado', en: 'Iced Tea', fr: 'Thé glacé' }, description: { es: 'Té frío con limón.', en: 'Cold tea with lemon.', fr: 'Thé froid avec citron.' }, price: { es: '2.5€', en: '€2.5', fr: '2.5€' } }
+      ]
+    }
+  ]
+};

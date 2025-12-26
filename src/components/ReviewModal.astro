@@ -9,7 +9,7 @@ import qr from '../assets/utils/qr_reviews.png';
 
 ---
 
-<div id="review-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4" data-titles={JSON.stringify(Array.isArray(t?.reviewModal?.title) ? t.reviewModal.title : [t?.reviewModal?.title ?? 'Leave a review'])}>
+<div id="review-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4 z-1000" data-titles={JSON.stringify(Array.isArray(t?.reviewModal?.title) ? t.reviewModal.title : [t?.reviewModal?.title ?? 'Leave a review'])}>
   <div class="bg-linear-to-br from-green-900 via-yellow-900 to-red-900 rounded-lg p-4 w-full max-w-md sm:max-w-lg mx-auto text-center max-h-[90vh] overflow-auto outline-6 outline-red-600">
     <div class="flex flex-col items-center gap-4">
       <h3 id="review-modal-title" class="text-xl sm:text-2xl font-semibold">{Array.isArray(t?.reviewModal?.title) ? t.reviewModal.title[0] : (t?.reviewModal?.title ?? 'Leave a review')}</h3>
@@ -29,7 +29,7 @@ import qr from '../assets/utils/qr_reviews.png';
   (function(){
     const modalId = 'review-modal';
     const closeId = 'review-modal-close';
-    const showDelay = 6000 ; // 7 seconds
+    const showDelay = 7000 ; // 7 seconds
 
     function showModal(){
       const modal = document.getElementById(modalId);

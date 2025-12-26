@@ -1,23 +1,62 @@
 ---
-import { Image } from 'astro:assets';
-
-const { drink } = Astro.props;
+import { Image } from "astro:assets";
+const { drink, backgroundImage } = Astro.props;
 ---
 
-<article class="flex gap-4 md:gap-6 lg:gap-8 items-center w-full max-w-[1200px] mx-auto min-w-0" aria-labelledby={`${drink.id}-title`}>
-  <div class="media shrink-0 w-30 sm:w-[140px] md:w-[200px] lg:w-[260px] xl:w-[320px] max-w-[320px] h-[180px] md:h-72 lg:h-80 xl:h-[360px] rounded-lg overflow-hidden flex items-center justify-center bg-linear-to-br from-white/5 to-black/5" role="img" aria-label={drink.imageAlt ?? drink.title}>
-    {drink.image ? (
-      <Image src={drink.image} alt={drink.imageAlt ?? drink.title} class="w-full h-full object-cover block" />
-    ) : (
-      <div class="w-full h-full bg-linear-to-br from-gray-800 to-black" />
-    )}
+<article class="relative w-full" aria-labelledby={`${drink.id}-title`}>
+	<Image
+		src={backgroundImage}
+		alt=""
+		aria-hidden="true"
+		class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none z-0"
+	/>
+	<div
+		class="flex items-center justify-center h-full"
+	>
+  <div class="flex gap-4 md:gap-6 lg:gap-8 items-center mx-auto min-w-0 overflow-hidden">
+
+		<div
+			class="media shrink-0 w-30 sm:w-[140px] md:w-[200px] lg:w-[260px] xl:w-[320px] max-w-[320px] h-[180px] md:h-72 lg:h-80 xl:h-[360px] rounded-lg overflow-hidden flex items-center justify-center bg-linear-to-br from-white/5 to-black/5 z-10 relative"
+			role="img"
+			aria-label={drink.imageAlt ?? drink.title}
+		>
+			{
+				drink.image ? (
+					<Image
+						src={drink.image}
+						alt={drink.imageAlt ?? drink.title}
+						class="w-full h-full object-cover block"
+					/>
+				) : (
+					<div class="w-full h-full bg-linear-to-br from-gray-800 to-black" />
+				)
+			}
+		</div>
+
+
+		<div class="content flex-1 min-w-0 max-w-full relative z-10">
+			<h2
+				id={`${drink.id}-title`}
+				class={`mb-1 tracking-tight text-2xl md:text-3xl lg:text-4xl font-extrabold break-words ${drink.variant === "mojito" ? "text-[#2fc58b]" : drink.variant === "pinacolada" ? "text-[#ffcf2f]" : "text-white"}`}
+			>
+				{drink.title}
+			</h2>
+			<p
+				class="text-sm md:text-base lg:text-lg text-gray-300 capitalize mb-3 break-words"
+			>
+				{drink.subtitle}
+			</p>
+			<div class="types flex flex-wrap gap-2">
+				{
+					drink.types?.map((t) => (
+						<span class="px-3 py-1 md:px-4 md:py-2 rounded-full text-sm md:text-base lg:text-base text-white bg-white/5 border border-white/5">
+							{t}
+						</span>
+					))
+				}
+			</div>
+		</div>
   </div>
 
-  <div class="content flex-1 min-w-0 max-w-full">
-    <h2 id={`${drink.id}-title`} class={`mb-1 tracking-tight text-2xl md:text-3xl lg:text-4xl font-extrabold break-words ${drink.variant === 'mojito' ? 'text-[#2fc58b]' : drink.variant === 'pinacolada' ? 'text-[#ffcf2f]' : 'text-white'}`}>{drink.title}</h2>
-    <p class="text-sm md:text-base lg:text-lg text-gray-300 capitalize mb-3 break-words">{drink.subtitle}</p>
-    <div class="types flex flex-wrap gap-2">
-      {drink.types?.map((t) => (<span class="px-3 py-1 md:px-4 md:py-2 rounded-full text-sm md:text-base lg:text-base text-white bg-white/5 border border-white/5">{t}</span>))}
-    </div>
-  </div>
+	</div>
 </article>
